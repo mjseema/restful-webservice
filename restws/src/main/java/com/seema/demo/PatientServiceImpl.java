@@ -6,24 +6,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.springframework.stereotype.Service;
 
+import com.seema.demo.exception.PatientBusinessException;
 import com.seema.demo.model.Patient;
 
 @Service
 public class PatientServiceImpl implements PatientService {
-	
+
 	Map<Long, Patient> patients = new HashMap<>();
 	long currentId = 123;
-	
+
 	public PatientServiceImpl() {
 		init();
 	}
-	
+
 	void init() {
-		
+
 		Patient patient = new Patient();
 		patient.setId(currentId);
 		patient.setName("John");
@@ -39,8 +42,13 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Patient getPatient(long id) {
+
+		if (patients.get(id) == null) {
+			// throw new WebApplicationException(Response.Status.NOT_FOUND);
+			throw new NotFoundException();
+		}
 		return patients.get(id);
-		
+
 	}
 
 	@Override
@@ -52,36 +60,35 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Response updatePatient(Patient patient) {
-		
+
 		Patient currentPatient = patients.get(patient.getId());
 		Response response;
-		
-		if(currentPatient!=null) {
+
+		if (currentPatient != null) {
 			patients.put(patient.getId(), patient);
-			response =  Response.ok().build();
-		}else {
-			response = Response.notModified().build();
+			response = Response.ok().build();
+		} else {
+			throw new PatientBusinessException();
 		}
 		return response;
-			
+
 	}
 
 	@Override
 	public Response deletePatient(long id) {
-		
+
 		Patient patient = patients.get(id);
 		Response response;
-		
-		if(patient != null) {
+
+		if (patient != null) {
 			patients.remove(patient.getId());
 			response = Response.ok().build();
-		}else {
+		} else {
 			response = Response.notModified().build();
+
 		}
-		
+
 		return response;
 	}
-
-	
 
 }

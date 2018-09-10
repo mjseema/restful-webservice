@@ -1,0 +1,15 @@
+package com.seema.demo;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+
+import com.seema.demo.exception.PatientBusinessException;
+
+public class PatientBusinessExceptionMapper implements ExceptionMapper<PatientBusinessException> {
+
+	@Override
+	public Response toResponse(PatientBusinessException exception) {
+		return Response.status(404).build();
+	}
+
+}
