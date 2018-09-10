@@ -1,0 +1,15 @@
+package com.seema.demo;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import com.seema.demo.model.Patient;
+
+@Path("/patientservice")
+public interface PatientService {
+	
+	@Path("/patients")
+	@GET
+	public Patient getPatients();
+	
+}

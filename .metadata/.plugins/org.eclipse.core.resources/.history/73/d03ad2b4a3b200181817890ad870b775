@@ -1,0 +1,28 @@
+package com.seema.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.seema.demo.model.Patient;
+
+@Service
+public class PatientServiceImpl implements PatientService {
+	
+	Map<Long, Patient> Patients = new HashMap<>();
+	long currentId = 123;
+	
+	public PatientServiceImpl() {
+		init();
+	}
+	
+	void init() {
+		
+		Patient patient = new Patient();
+		patient.setId(currentId);
+		patient.setName("John");
+		Patients.put(patient.getId(), patient);
+	}
+
+}

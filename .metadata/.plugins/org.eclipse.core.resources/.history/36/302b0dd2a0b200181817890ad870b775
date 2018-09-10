@@ -1,0 +1,5 @@
+package com.seema.demo;
+
+public interface PatientService {
+
+}

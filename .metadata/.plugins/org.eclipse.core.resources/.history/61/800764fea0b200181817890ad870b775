@@ -1,0 +1,5 @@
+package com.seema.demo;
+
+public class PatientServiceImpl implements PatientService {
+
+}

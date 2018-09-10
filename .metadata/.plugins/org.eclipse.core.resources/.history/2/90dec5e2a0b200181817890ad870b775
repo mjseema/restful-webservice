@@ -1,0 +1,8 @@
+package com.seema.demo;
+
+import javax.ws.rs.Path;
+
+@Path("/patient")
+public interface PatientService {
+
+}
